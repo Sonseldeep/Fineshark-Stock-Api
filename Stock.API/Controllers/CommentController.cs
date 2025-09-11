@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Stock.API.Dtos.Comment.Request;
 using Stock.API.Mapping;
@@ -52,5 +53,15 @@ public class CommentController : ControllerBase
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateRequestCommentDto updateDto)
     {
         var comment = await _repository.UpdateAsync(id,updateDto.ToCommentModel());
+
+        if (comment is null)
+        {
+            return NotFound("comment not found");
+        }
+
+        return NoContent();
     }
+    
+    
+
 }

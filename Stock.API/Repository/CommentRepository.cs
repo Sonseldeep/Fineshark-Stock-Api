@@ -32,7 +32,7 @@ public class CommentRepository : ICommentRepository
 
     public async Task<Comment?> UpdateAsync(int id, Comment commentModel)
     {
-        var existingComment = await _context.Comments.AsNoTracking().SingleOrDefaultAsync(c => c.Id == id);
+        var existingComment = await _context.Comments.SingleOrDefaultAsync(c => c.Id == id);
 
         if (existingComment is null)
         {
