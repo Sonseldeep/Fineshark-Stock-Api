@@ -29,4 +29,20 @@ public class CommentRepository : ICommentRepository
         await _context.SaveChangesAsync();
         return commentModel;
     }
+
+    public async Task<Comment?> UpdateAsync(int id, Comment commentModel)
+    {
+        var existingComment = await _context.Comments.AsNoTracking().SingleOrDefaultAsync(c => c.Id == id);
+
+        if (existingComment is null)
+        {
+            return null;
+        }
+        existingComment.Title = commentModel.Title;
+        existingComment.Content = commentModel.Content;
+
+        await _context.SaveChangesAsync();
+        return existingComment;
+
+    }
 }

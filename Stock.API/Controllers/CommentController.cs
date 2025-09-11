@@ -47,4 +47,10 @@ public class CommentController : ControllerBase
         await _repository.CreateAsync(commentModel);
         return CreatedAtAction(nameof(Get),new {id = commentModel.Id},commentModel.ToCommentDto());
     }
+
+    [HttpPut("api/comments/{id:int}")]
+    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateRequestCommentDto updateDto)
+    {
+        var comment = await _repository.UpdateAsync(id,updateDto.ToCommentModel());
+    }
 }

@@ -63,6 +63,17 @@ public static class ContractMappingExtesnsion
     }
     
     
+    public static Comment ToCommentModel(this UpdateRequestCommentDto commentDto)
+    {
+        return new Comment
+        {
+            Title = commentDto.Title,
+            Content = commentDto.Content,
+
+        };
+    }
+    
+    
     
     
     
