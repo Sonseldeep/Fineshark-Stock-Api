@@ -62,6 +62,17 @@ public class CommentController : ControllerBase
         return NoContent();
     }
     
+    [HttpDelete("api/comments/{id:int}")]
+    public async Task<IActionResult> DeleteAsync([FromRoute] int id)
+    {
+        var isDeleted = await _repository.DeleteAsync(id);
+        if (!isDeleted)
+        {
+            return NotFound("comment not found");
+        }
+
+        return NoContent();
+    }
     
 
 }

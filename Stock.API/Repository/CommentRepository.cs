@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Stock.API.Data;
 using Stock.API.Models;
@@ -45,4 +46,19 @@ public class CommentRepository : ICommentRepository
         return existingComment;
 
     }
+
+    public async Task<bool> DeleteAsync(int id)
+    {
+        var existingComment = await _context.Comments.SingleOrDefaultAsync(c => c.Id == id);
+        
+        if (existingComment is null)
+        {
+            return false;
+        }
+        _context.Comments.Remove(existingComment);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
+  
 }
