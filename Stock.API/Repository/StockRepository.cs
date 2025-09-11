@@ -15,13 +15,13 @@ public class StockRepository : IStockRepository
 
     public async Task<IEnumerable<Models.Stock>> GetAllAsync()
     {
-        return await _context.Stocks.AsNoTracking().ToListAsync();
+        return await _context.Stocks.AsNoTracking().Include(c => c.Comments).ToListAsync();
     }
 
     
     public async Task<Models.Stock?> GetByIdAsync(int id)
     {
-        return await _context.Stocks.SingleOrDefaultAsync(x => x.Id == id);
+        return await _context.Stocks.Include(x => x.Comments).SingleOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<Models.Stock> CreateAsync(Models.Stock stock)
@@ -60,5 +60,10 @@ public class StockRepository : IStockRepository
         _context.Stocks.Remove(existingStock);
         await _context.SaveChangesAsync();
         return true;
+    }
+
+    public async Task<bool> StockExists(int id)
+    {
+       return await _context.Stocks.AnyAsync(x => x.Id == id);
     }
 }

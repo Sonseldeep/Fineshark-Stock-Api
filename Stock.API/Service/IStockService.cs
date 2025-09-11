@@ -1,14 +1,12 @@
 using Stock.API.Dtos.Stock.Request;
 
-namespace Stock.API.Repository;
+namespace Stock.API.Service;
 
-public interface IStockRepository
+public interface IStockService
 {
     Task<IEnumerable<Models.Stock>> GetAllAsync();
     Task<Models.Stock?> GetByIdAsync(int id);
     Task<Models.Stock> CreateAsync(Models.Stock stock);
     Task<bool> UpdateAsync(int id, UpdateRequestDto updateDto);
     Task<bool> DeleteAsync(int id);
-
-    Task<bool> StockExists(int id);
 }

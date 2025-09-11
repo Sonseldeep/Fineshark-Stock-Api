@@ -1,3 +1,5 @@
+using Stock.API.Dtos.Comment.Response;
+
 namespace Stock.API.Dtos.Stock.Response;
 
 public class ResponseStockDto
@@ -13,5 +15,6 @@ public class ResponseStockDto
     public decimal LastDiv { get; set; }
     public string Industry { get; set; } = string.Empty;
     public long MarketCap { get; set; }
+    public IEnumerable<ResponseCommentDto> Comments { get; set; } = [];
     
 }
