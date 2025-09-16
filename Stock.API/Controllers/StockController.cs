@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Stock.API.Data;
 using Stock.API.Dtos.Stock.Request;
+using Stock.API.Helper;
 using Stock.API.Mapping;
 using Stock.API.Repository;
 
@@ -19,13 +20,13 @@ public class StockController : ControllerBase
     }
 
     [HttpGet("api/stocks")]
-    public async  Task<IActionResult> GetAll()
+    public async  Task<IActionResult> GetAll( [FromQuery] QueryObject query )
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
-        var stocks = await _repository.GetAllAsync();
+        var stocks = await _repository.GetAllAsync(query);
         var response = stocks.Select(x => x.ToStockDto());
         
         return Ok(response);

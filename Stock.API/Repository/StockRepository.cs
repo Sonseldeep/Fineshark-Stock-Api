@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Stock.API.Data;
 using Stock.API.Dtos.Stock.Request;
+using Stock.API.Helper;
 
 namespace Stock.API.Repository;
 
@@ -13,9 +14,20 @@ public class StockRepository : IStockRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<Models.Stock>> GetAllAsync()
+    public async Task<IEnumerable<Models.Stock>> GetAllAsync(QueryObject query)
     {
-        return await _context.Stocks.AsNoTracking().Include(c => c.Comments).ToListAsync();
+        var stocks =  _context.Stocks.AsNoTracking().Include(c => c.Comments).AsQueryable();
+        
+        if (!string.IsNullOrWhiteSpace(query.CompanyName))
+        {
+            stocks = stocks.Where(s => s.CompanyName.Contains(query.CompanyName));
+        }
+
+        if (!string.IsNullOrWhiteSpace(query.Symbol))
+        {
+            stocks = stocks.Where(s => s.Symbol.Contains(query.Symbol));
+        }
+        return await stocks.ToListAsync();
     }
 
     
