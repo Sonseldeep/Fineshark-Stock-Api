@@ -21,6 +21,11 @@ public class CommentController : ControllerBase
     [HttpGet("api/comments")]
     public async Task<IActionResult> GetAll()
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
         var comments = await _repository.GetAllAsync();
         var response = comments.Select(x => x.ToCommentDto());
         return Ok(response);
@@ -29,6 +34,10 @@ public class CommentController : ControllerBase
     [HttpGet("api/comments/{id:int}")]
     public async Task<IActionResult> Get(int id)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         var comment = await _repository.GetByIdAsync(id);
         return comment is null
             ? NotFound()
@@ -38,6 +47,11 @@ public class CommentController : ControllerBase
     [HttpPost("api/comments/{stockId:int}")]
     public async Task<IActionResult> Create([FromRoute] int stockId, [FromBody] CreateRequestCommentDto commentDto)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
         var isStockExist = await _stockRepository.StockExists(stockId);
         if (!isStockExist)
         {
@@ -52,6 +66,11 @@ public class CommentController : ControllerBase
     [HttpPut("api/comments/{id:int}")]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateRequestCommentDto updateDto)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
         var comment = await _repository.UpdateAsync(id,updateDto.ToCommentModel());
 
         if (comment is null)
@@ -65,6 +84,11 @@ public class CommentController : ControllerBase
     [HttpDelete("api/comments/{id:int}")]
     public async Task<IActionResult> DeleteAsync([FromRoute] int id)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
         var isDeleted = await _repository.DeleteAsync(id);
         if (!isDeleted)
         {
