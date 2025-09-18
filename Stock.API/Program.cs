@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Stock.API.Data;
 using Stock.API.Models;
 using Stock.API.Repository;
+using Stock.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,6 +63,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
