@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace Stock.API.Models;
 
@@ -12,7 +13,7 @@ public class Stock
     
     [Column(TypeName = "decimal(18,2)")]
     public decimal Purchase { get; set; }
-
+    
     public decimal LastDiv { get; set; }
     public string Industry { get; set; } = string.Empty;
     public long MarketCap { get; set; }
