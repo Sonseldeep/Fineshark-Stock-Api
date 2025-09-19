@@ -20,4 +20,6 @@ public class Stock
 
     public List<Comment> Comments { get; set; } = [];
 
+    public List<Portfolio> Portfolios { get; set; } = [];
+
 }
