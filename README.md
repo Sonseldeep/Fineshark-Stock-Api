@@ -61,7 +61,7 @@ Follow these instructions to get a copy of the project up and running on your lo
 
     ```json
     "ConnectionStrings": {
-      "DefaultConnection": "Server=your_server;Database=your_database;User Id=your_user;Password=your_password;"
+      "DefaultConnection": "Server=your_server;Database=your_database;User Id=your_user;Password=your_password;Trusted_Connection=True;TrustServerCertificate=True;"
     }
     ```
 4.  **Apply database migrations**
