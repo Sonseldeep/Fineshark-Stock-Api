@@ -1,4 +1,4 @@
-# Stock API 📈
+# Stock API 
 
 ![.NET](https://img.shields.io/badge/.NET-8-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
